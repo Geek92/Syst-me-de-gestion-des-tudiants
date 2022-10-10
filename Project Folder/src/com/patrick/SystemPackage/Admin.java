@@ -1,16 +1,56 @@
 package com.patrick.SystemPackage;
 
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+
 public class Admin extends User {
 
-	@Override
-	public void login(String userName, String password) {
-		// TODO Auto-generated method stub
-
+	DbConnection connection;
+	Connection conn; 
+	
+	public Admin() {
+		super();
+	}
+	
+	public Admin(String name, String password) {
+		super();
+		userName = name;
+		this.password = password;
 	}
 
 	@Override
 	public void addUser(User user) {
-		// TODO Auto-generated method stub
+		
+		if(!(user instanceof Acountant)) {
+			
+			System.out.println("impossible d'ajouter un utilisateur qui n'est pas un comptable!");
+			
+		}
+		
+		StringBuilder builder = new StringBuilder("insert into Accountant (name, password,country,birthDate)");
+		builder.append(" values (\"");
+		builder.append(user.userName+"\",\"");
+		builder.append(user.password+"\",");
+		builder.append("\"canada\",");
+		builder.append("\"2010-11-12\"");
+		builder.append(");");
+		
+		connection = new DbConnection();
+		conn = connection.connect();
+		
+		String query = builder.toString();
+		System.out.println("query: "+query);
+		
+		try {
+			Statement statem = conn.createStatement();
+			boolean res = statem.execute(query);
+			System.out.println("result: "+res);
+			
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
 
 	}
 

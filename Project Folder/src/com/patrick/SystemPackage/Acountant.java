@@ -1,11 +1,15 @@
 package com.patrick.SystemPackage;
 
 public class Acountant extends User {
-
-	@Override
-	public void login(String userName, String password) {
-		// TODO Auto-generated method stub
-
+	
+	public Acountant() {
+		
+	}
+	
+	public Acountant(String userName, String password) {
+		
+		this.userName = userName;
+		this.password = password;
 	}
 
 	@Override
