@@ -17,7 +17,7 @@ public abstract class User {
 	
 	//public abstract boolean login();
 	public abstract void addUser(User user);
-	public abstract void EditUserInfo(String Userid, String value);
+	public abstract void EditUserInfo(String Userid, String columnName,String value);
 	public abstract void removeUser(String Userid);
 	public abstract void viewUserInfo(String Userid);
 	

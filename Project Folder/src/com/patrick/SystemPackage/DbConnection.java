@@ -29,7 +29,7 @@ public class DbConnection {
 	}
 
 	 //fermer la connection à la base de données
-	 void closeConnection() {
+	  void closeConnection() {
 		
 		 try {
 			conn.close();
