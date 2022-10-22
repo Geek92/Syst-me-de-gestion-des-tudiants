@@ -1,9 +1,12 @@
-package com.patrick.SystemPackage;
+package com.patrick.SystemPackage.users;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+
+import com.patrick.SystemPackage.connection.DbConnection;
+import com.patrick.SystemPackage.exceptions.AccountantTypeException;
 
 public class Admin extends User {
 
@@ -21,40 +24,38 @@ public class Admin extends User {
 	}
 
 	@Override
-	public void addUser(User user) {
+	public void addUseraddUser(User user) throws AccountantTypeException, SQLException{
+		loggedIn();
 		
 		if(!(user instanceof Acountant)) {
 			
-			System.out.println("impossible d'ajouter un utilisateur qui n'est pas un comptable!");
+			throw new AccountantTypeException();
 			
-		}
+		} else {
 		
-		StringBuilder builder = new StringBuilder("insert into Accountant (name, password,country,birthDate)");
-		builder.append(" values (\"");
-		builder.append(user.userName+"\",\"");
-		builder.append(user.password+"\",");
-		builder.append("\"canada\",");
-		builder.append("\"2010-11-12\"");
-		builder.append(");");
+			StringBuilder builder = new StringBuilder("insert into Accountant (name, password,country,birthDate)");
+			builder.append(" values (\"");
+			builder.append(user.userName+"\",\"");
+			builder.append(user.password+"\",");
+			builder.append("\"canada\",");
+			builder.append("\"2010-11-12\"");
+			builder.append(");");
 		
-		connection = new DbConnection();
-		conn = connection.connect();
-		
-		String query = builder.toString();
-		System.out.println("query: "+query);
-		
-		try {
+			connection = new DbConnection();
+			conn = connection.connect();
+			String query = builder.toString();
+			System.out.println("query: "+query);
 			Statement statem = conn.createStatement();
 			boolean res = statem.execute(query);
 			System.out.println("result: "+res);
-		} catch(Exception e) {
-			e.printStackTrace();
+			connection.closeConnection();
 		}
-		connection.closeConnection();
 	}
 
 	@Override
 	public void EditUserInfo(String Userid, String columnName,String value) {
+		
+		loggedIn();
 		StringBuilder builder = new StringBuilder("update Accountant set ");
 		builder.append(columnName);
 		builder.append(" ="+"\'"+value+"\'");
@@ -81,11 +82,14 @@ public class Admin extends User {
 	@Override
 	public void removeUser(String userId) {
 		
+		loggedIn();
 		StringBuilder builder = new StringBuilder("delete from Accountant where id = ");
 		builder.append(userId);
 		builder.append(";");
 		String query = builder.toString();
 		System.out.println(query);
+		connection = new DbConnection();
+		conn = connection.connect();
 		try {
 			Statement statem = conn.createStatement();
 			boolean res = statem.execute(query);
@@ -95,10 +99,14 @@ public class Admin extends User {
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
+		
+		connection.closeConnection();
 	}
 
 	@Override
 	public void viewUserInfo(String userId) {
+		
+		loggedIn();
 		StringBuilder builder = new StringBuilder("select * from Accountant where id = ");
 		builder.append(userId);
 		builder.append(";");
@@ -119,5 +127,11 @@ public class Admin extends User {
 		}
 		connection.closeConnection();
 	}
-
+	
+	public void loggedIn() {
+		if(!isUserLoggedIn) {
+			System.out.println("vous devez effectuer le loggin avant de pouvoir executer cette operation!");
+			System.exit(-1);
+		}
+	}
 }

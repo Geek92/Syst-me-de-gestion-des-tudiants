@@ -1,19 +1,25 @@
 package com.patrick.SystemPackage;
 
+import com.patrick.SystemPackage.users.Acountant;
+import com.patrick.SystemPackage.users.Student;
+
 public class MainApplication {
 
 	public static void main(String[] args) {
 		
-		Admin patrick = new Admin("patrick","1234");
-		patrick.login("Admin");
-		//User donatien = new Acountant("donald", "6789");
-		User max = new Acountant("max", "maria");
-		//donatien.methodeTest();
-		//patrick.addUser(max);
-		//patrick.removeUser(String.valueOf(2));
+		Acountant mateo = new Acountant("mateo","maria");
 		
-		patrick.EditUserInfo(String.valueOf(5), "name", "tonton");
-		patrick.viewUserInfo(String.valueOf(5));
+		mateo.login("Accountant");
+		
+		Student patson = new Student("frank");
+		
+		try {
+			mateo.addStudent(patson);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		
 	}
 
 }

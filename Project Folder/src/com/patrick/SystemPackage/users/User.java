@@ -1,10 +1,14 @@
-package com.patrick.SystemPackage;
+package com.patrick.SystemPackage.users;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Date;
+
+import com.patrick.SystemPackage.connection.DbConnection;
+import com.patrick.SystemPackage.exceptions.AccountantTypeException;
+import com.patrick.SystemPackage.exceptions.StudentTypeException;
 
 public abstract class User {
 
@@ -14,15 +18,16 @@ public abstract class User {
 	protected String Country;
 	protected String password;
 	Connection conn;
+	protected Boolean isUserLoggedIn = false;
 	
 	//public abstract boolean login();
-	public abstract void addUser(User user);
+	public abstract void addUseraddUser(User user) throws AccountantTypeException,StudentTypeException,SQLException;
 	public abstract void EditUserInfo(String Userid, String columnName,String value);
 	public abstract void removeUser(String Userid);
 	public abstract void viewUserInfo(String Userid);
 	
 	
-	public boolean login(String tableau) {
+	public void login(String tableau) {
 		
 		DbConnection connection = new DbConnection();
 		conn = connection.connect();
@@ -53,10 +58,9 @@ public abstract class User {
 		if(resultName.equals(userName) && resultPassword.equals(password)){
 			System.out.println("login effectue avec succes");
 			System.out.println("bienvenue " + resultName);
-			return true;
+			isUserLoggedIn = true;
 		} else {
 			System.out.println("username ou mot de passe incorrect");
-			return false;
 		}
 	}
 

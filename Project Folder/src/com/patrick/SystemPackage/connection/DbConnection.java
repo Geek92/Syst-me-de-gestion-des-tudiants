@@ -1,4 +1,4 @@
-package com.patrick.SystemPackage;
+package com.patrick.SystemPackage.connection;
 
 import java.sql.*;
 
@@ -12,7 +12,7 @@ public class DbConnection {
 	String password = "";
 
 	//methode qui permet de se connecter a la base de donnee
-	 Connection connect(){
+	 public Connection connect(){
 		System.out.println("tentative de connection à la base de données");
 		
 		try {
@@ -29,7 +29,7 @@ public class DbConnection {
 	}
 
 	 //fermer la connection à la base de données
-	  void closeConnection() {
+	  public void closeConnection() {
 		
 		 try {
 			conn.close();
