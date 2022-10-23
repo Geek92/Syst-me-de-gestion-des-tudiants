@@ -4,7 +4,11 @@ public class AccountantTypeException extends Exception {
 
 	 private static final long serialVersionUID = 1L;
 
-	public AccountantTypeException() {
-		 super(" l'intance doit etre de type comptable!");
+	public AccountantTypeException(String message) {
+		 super(message);
 	 }
+	
+	public AccountantTypeException() {
+		super();
+	}
 }

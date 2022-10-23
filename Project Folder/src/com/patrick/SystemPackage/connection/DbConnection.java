@@ -2,6 +2,12 @@ package com.patrick.SystemPackage.connection;
 
 import java.sql.*;
 
+/**
+ * 
+ * @author patrickfrank
+ *  Classe qui permets de gerer la connection a la base de données
+ */
+
 public class DbConnection {
 	
 	Connection conn = null;

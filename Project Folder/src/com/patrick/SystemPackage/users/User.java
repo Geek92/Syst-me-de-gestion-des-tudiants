@@ -9,6 +9,7 @@ import java.util.Date;
 import com.patrick.SystemPackage.connection.DbConnection;
 import com.patrick.SystemPackage.exceptions.AccountantTypeException;
 import com.patrick.SystemPackage.exceptions.StudentTypeException;
+import com.patrick.SystemPackage.exceptions.UnfoundUserException;
 
 public abstract class User {
 
@@ -21,12 +22,49 @@ public abstract class User {
 	protected Boolean isUserLoggedIn = false;
 	
 	//public abstract boolean login();
+	/**
+	 * 
+	 * @param user
+	 * @throws AccountantTypeException
+	 * @throws StudentTypeException
+	 * @throws SQLException
+	 * 
+	 * Ajouter un utilisateur
+	 */
 	public abstract void addUseraddUser(User user) throws AccountantTypeException,StudentTypeException,SQLException;
-	public abstract void EditUserInfo(String Userid, String columnName,String value);
-	public abstract void removeUser(String Userid);
-	public abstract void viewUserInfo(String Userid);
+	/**
+	 * 
+	 * @param Userid
+	 * @param columnName
+	 * @param value
+	 * @throws UnfoundUserException
+	 * 
+	 * Modifier les informations liées a un utilisateur
+	 */
+	public abstract void EditUserInfo(String Userid, String columnName,String value) throws UnfoundUserException;
+	/**
+	 * <p>
+	 * Supprimer un utilisateur de la base de données
+	 * <p/>
+	 * @param Userid
+	 * @throws UnfoundUserException
+	 */
+	public abstract void removeUser(String Userid)throws UnfoundUserException;
+	/**
+	 * 
+	 * @param Userid
+	 * @throws UnfoundUserException
+	 * 
+	 * Visualiser les informations liées a un utilisateur
+	 */
+	public abstract void viewUserInfo(String Userid)throws UnfoundUserException;
 	
-	
+	/**
+	 * 
+	 * @param tableau
+	 * 
+	 *  Effectuer le login a partir de la table passée en parametre
+	 */
 	public void login(String tableau) {
 		
 		DbConnection connection = new DbConnection();
@@ -66,7 +104,7 @@ public abstract class User {
 
 	
 	protected void methodeTest() {
-		System.out.println("test pur les methodes private");
+		System.out.println("test pour les methodes private");
 	}
 	
 	
