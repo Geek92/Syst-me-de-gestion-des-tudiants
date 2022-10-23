@@ -45,7 +45,7 @@ public abstract class User {
 	/**
 	 * <p>
 	 * Supprimer un utilisateur de la base de données
-	 * <p/>
+	 * </p>
 	 * @param Userid
 	 * @throws UnfoundUserException
 	 */
